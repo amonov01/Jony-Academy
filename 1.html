@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jony Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<style>
+:root{--lapis:#14307A;--lapis2:#0C1F54;--turq:#12A3A0;--saffron:#F2A33A;--bg:#EEF2F7;--card:#fff;--ink:#16203A;--mute:#6B7794;--line:#DDE3EE;--bad:#D9484A;--ok:#14935A}
+*{box-sizing:border-box;margin:0}
+body{font-family:Manrope,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+h1,h2,h3,.logo{font-family:Unbounded,sans-serif;font-weight:700}
+button{font:inherit;cursor:pointer;border:0}
+:focus-visible{outline:3px solid var(--saffron);outline-offset:2px}
+.hide{display:none!important}
+/* AUTH */
+#auth{display:grid;grid-template-columns:1.1fr 1fr;min-height:100vh}
+.hero{background:var(--lapis2);color:#fff;padding:56px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;opacity:.18;background:
+ conic-gradient(from 45deg at 50% 50%,var(--turq) 0 25%,transparent 0 50%,var(--turq) 0 75%,transparent 0) 0 0/64px 64px,
+ radial-gradient(circle at 32px 32px,transparent 0 10px,var(--saffron) 10px 12px,transparent 12px) 0 0/64px 64px}
+.hero>*{position:relative}
+.logo{font-size:22px;display:flex;align-items:center;gap:10px}
+.logo i{width:34px;height:34px;border-radius:10px;background:var(--saffron);display:grid;place-items:center;color:var(--lapis2);font-style:normal}
+.hero h1{font-size:clamp(34px,5vw,60px);line-height:1.05;max-width:11ch}
+.hero p{max-width:38ch;opacity:.85;margin-top:18px;line-height:1.6}
+.chips{display:flex;gap:10px;flex-wrap:wrap}
+.chips span{background:rgba(255,255,255,.12);padding:8px 14px;border-radius:99px;font-weight:600;font-size:14px}
+.formside{display:grid;place-items:center;padding:32px;background:#fff}
+.box{width:100%;max-width:380px}
+.tabs{display:flex;background:var(--bg);border-radius:12px;padding:4px;margin:22px 0}
+.tabs button{flex:1;padding:10px;border-radius:9px;background:none;font-weight:700;color:var(--mute)}
+.tabs button.on{background:#fff;color:var(--lapis);box-shadow:0 1px 4px #0002}
+label{display:block;font-weight:600;font-size:13px;margin:14px 0 6px}
+input,select{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;font:inherit;background:#fff}
+input:focus,select:focus{border-color:var(--lapis);outline:none}
+.btn{background:var(--lapis);color:#fff;padding:13px 18px;border-radius:10px;font-weight:700;width:100%;margin-top:18px}
+.btn:hover{background:var(--lapis2)}
+.btn.sm{width:auto;margin:0;padding:10px 16px}
+.gbtn{background:#fff;border:1.5px solid var(--line);color:var(--ink);display:flex;gap:10px;align-items:center;justify-content:center;margin-top:12px}
+.or{text-align:center;color:var(--mute);font-size:13px;margin:16px 0 0}
+.err{color:var(--bad);font-size:13px;margin-top:10px;min-height:16px}
+/* APP */
+#app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+aside{background:var(--lapis2);color:#fff;padding:24px 16px;display:flex;flex-direction:column;gap:6px;position:sticky;top:0;height:100vh}
+aside .logo{margin:0 8px 24px;font-size:18px}
+aside .logo i{width:30px;height:30px}
+.nav{background:none;color:#C9D3F0;text-align:left;padding:12px 14px;border-radius:10px;font-weight:600}
+.nav:hover{background:#ffffff14}
+.nav.on{background:var(--turq);color:#fff}
+.me{margin-top:auto;padding:12px;background:#ffffff12;border-radius:12px;font-size:13px}
+.me button{background:none;color:var(--saffron);font-weight:700;margin-top:6px;padding:0}
+main{padding:34px;max-width:1100px;width:100%}
+main h2{font-size:24px;margin-bottom:6px}
+.sub{color:var(--mute);margin-bottom:24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.card{background:var(--card);border-radius:16px;padding:20px;border:1px solid var(--line)}
+.stat b{display:block;font-family:Unbounded;font-size:30px;margin-top:6px;color:var(--lapis)}
+.stat.warn b{color:var(--bad)}.stat.good b{color:var(--ok)}
+.course{border-top:5px solid var(--turq)}
+.course.eng{border-color:var(--saffron)}.course.rus{border-color:var(--bad)}
+.course h3{font-size:16px;margin-bottom:4px}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;background:#E3EBFA;color:var(--lapis)}
+.bar{height:8px;background:var(--bg);border-radius:9px;margin-top:12px;overflow:hidden}.bar i{display:block;height:100%;background:var(--turq)}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+.tools input,.tools select{width:auto;flex:1;min-width:150px}
+.tw{overflow-x:auto;background:#fff;border-radius:16px;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;min-width:560px}
+th,td{padding:13px 16px;text-align:left;border-bottom:1px solid var(--line);font-size:14px}
+th{color:var(--mute);font-weight:600;background:#F7F9FC}
+tr:last-child td{border-bottom:0}
+.pill{padding:6px 14px;border-radius:99px;font-weight:700;font-size:13px}
+.pill.ok{background:#DDF5E9;color:var(--ok)}.pill.no{background:#FBE3E3;color:var(--bad)}
+.x{background:none;color:var(--bad);font-weight:700}
+.chk{width:22px;height:22px;accent-color:var(--turq)}
+dialog{border:0;border-radius:18px;padding:26px;width:min(420px,92vw)}
+dialog::backdrop{background:#0C1F5488}
+.empty{padding:36px;text-align:center;color:var(--mute)}
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 20px;border-radius:12px;font-weight:600;z-index:9}
+@media(max-width:820px){
+ #auth{grid-template-columns:1fr}.hero{padding:28px;min-height:260px}
+ #app{grid-template-columns:1fr}
+ aside{position:fixed;bottom:0;left:0;right:0;top:auto;height:auto;flex-direction:row;padding:8px;z-index:5;overflow-x:auto}
+ aside .logo,.me{display:none}.nav{padding:10px 12px;font-size:13px;white-space:nowrap}
+ main{padding:20px 16px 90px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<section id="auth">
+ <div class="hero">
+  <div class="logo"><i>J</i>Jony Academy</div>
+  <div>
+   <h1>Bilim — kelajak kaliti</h1>
+   <p>IT, ingliz va rus tili kurslari. O'quvchilar, davomat va oylik to'lovlar — hammasi bir joyda.</p>
+  </div>
+  <div class="chips"><span>Frontend</span><span>Python</span><span>English</span><span>Русский</span></div>
+ </div>
+ <div class="formside"><div class="box">
+  <h2>Xush kelibsiz</h2>
+  <div class="tabs"><button id="tLogin" class="on" onclick="tab('login')">Kirish</button><button id="tReg" onclick="tab('reg')">Ro'yxatdan o'tish</button></div>
+  <div id="nameWrap" class="hide"><label for="aName">Ism</label><input id="aName" placeholder="Ismingiz"></div>
+  <label for="aEmail">Email</label><input id="aEmail" type="email" placeholder="siz@mail.com">
+  <label for="aPass">Parol</label><input id="aPass" type="password" placeholder="Kamida 6 ta belgi">
+  <div class="err" id="aErr"></div>
+  <button class="btn" id="aBtn" onclick="submitAuth()">Kirish</button>
+  <p class="or">yoki</p>
+  <div id="gHolder"><button class="btn gbtn" onclick="googleFallback()"><svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.5l6.7-6.7C35.6 2.4 30.2 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.8 6.1C12.3 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.2 5.3-4.6 6.9l7.4 5.7c4.3-4 6.9-9.9 6.9-17.1z"/><path fill="#FBBC05" d="M10.4 28.7c-.5-1.4-.8-2.9-.8-4.7s.3-3.3.8-4.7l-7.8-6.1C1 16.4 0 20.1 0 24s1 7.6 2.6 10.8l7.8-6.1z"/><path fill="#34A853" d="M24 48c6.2 0 11.4-2 15.2-5.5l-7.4-5.7c-2 1.4-4.7 2.2-7.8 2.2-6.3 0-11.7-4.1-13.6-9.8l-7.8 6.1C6.5 42.6 14.6 48 24 48z"/></svg>Google orqali kirish</button></div>
+ </div></div>
+</section>
+
+<section id="app" class="hide">
+ <aside>
+  <div class="logo"><i>J</i>Jony Academy</div>
+  <button class="nav on" data-v="dash">Bosh sahifa</button>
+  <button class="nav" data-v="courses">Kurslar</button>
+  <button class="nav" data-v="students">O'quvchilar</button>
+  <button class="nav" data-v="att">Davomat</button>
+  <button class="nav" data-v="pay">To'lovlar</button>
+  <div class="me"><div id="meName"></div><button onclick="logout()">Chiqish</button></div>
+ </aside>
+ <main id="view"></main>
+</section>
+
+<dialog id="dlg"></dialog>
+<div id="toast" class="hide"></div>
+
+<script>
+// Google orqali kirish uchun: console.cloud.google.com dan Client ID oling va shu yerga yozing
+const GOOGLE_CLIENT_ID = "226088116872-v99vil3pjjt01bmnsjvcsr941ncv1ujd.apps.googleusercontent.com";
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const money = n => Number(n).toLocaleString('ru-RU') + " so'm";
+const monthNow = () => new Date().toISOString().slice(0,7);
+const today = () => new Date().toISOString().slice(0,10);
+const load = (k,d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d } catch { return d } };
+const store = (k,v) => localStorage.setItem(k, JSON.stringify(v));
+
+/* ---------- MA'LUMOTLAR ---------- */
+function seed(){
+  const c = [
+    {id:1,name:'Frontend (HTML, CSS, JS)',kind:'IT',price:600000,teacher:'Jasur aka',cls:''},
+    {id:2,name:'Python dasturlash',kind:'IT',price:600000,teacher:'Dilnoza opa',cls:''},
+    {id:3,name:'Ingliz tili',kind:'Til',price:400000,teacher:'Madina opa',cls:'eng'},
+    {id:4,name:'Rus tili',kind:'Til',price:350000,teacher:'Olga opa',cls:'rus'}];
+  const names = [['Azizbek Karimov','+998 90 123 45 67',1],['Malika Yusupova','+998 91 234 56 78',1],['Sardor Rahimov','+998 93 345 67 89',2],
+    ['Nilufar Tosheva','+998 94 456 78 90',2],['Jahongir Aliyev','+998 97 567 89 01',3],['Dildora Ergasheva','+998 99 678 90 12',3],
+    ['Bekzod Olimov','+998 88 789 01 23',4],['Zarina Abdullayeva','+998 95 890 12 34',4]];
+  const m = monthNow();
+  return {courses:c, att:{}, students:names.map((n,i)=>({id:i+1,name:n[0],phone:n[1],course:n[2],paid:i%2?{}:{[m]:true}}))};
+}
+let db = load('jony_db', null) || seed();
+const save = () => store('jony_db', db);
+const course = id => db.courses.find(c => c.id == id) || {name:'—',price:0};
+
+/* ---------- AUTH ---------- */
+let mode = 'login';
+function tab(m){
+  mode = m;
+  $('#tLogin').classList.toggle('on', m==='login'); $('#tReg').classList.toggle('on', m==='reg');
+  $('#nameWrap').classList.toggle('hide', m==='login');
+  $('#aBtn').textContent = m==='login' ? 'Kirish' : "Ro'yxatdan o'tish";
+  $('#aErr').textContent = '';
+}
+async function hash(s){
+  const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+  return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2,'0')).join('');
+}
+async function submitAuth(){
+  const email = $('#aEmail').value.trim().toLowerCase(), pass = $('#aPass').value, name = $('#aName').value.trim();
+  const err = t => $('#aErr').textContent = t;
+  if(!/^\S+@\S+\.\S+$/.test(email)) return err("Email noto'g'ri");
+  if(pass.length < 6) return err("Parol kamida 6 ta belgi bo'lsin");
+  const users = load('jony_users', []);
+  const h = await hash(pass);
+  if(mode === 'reg'){
+    if(!name) return err('Ismingizni yozing');
+    if(users.some(u => u.email === email)) return err("Bu email ro'yxatdan o'tgan");
+    users.push({email, name, h}); store('jony_users', users);
+    enter({email, name});
+  } else {
+    const u = users.find(u => u.email === email && u.h === h);
+    if(!u) return err("Email yoki parol noto'g'ri");
+    enter({email, name:u.name});
+  }
+}
+function googleFallback(){ alert("Google kirishni yoqish uchun kodning boshidagi GOOGLE_CLIENT_ID ga o'z Client ID ingizni yozing."); }
+function initGoogle(){
+  if(!GOOGLE_CLIENT_ID || !window.google) return;
+  google.accounts.id.initialize({client_id: GOOGLE_CLIENT_ID, callback: r => {
+    const p = JSON.parse(decodeURIComponent(escape(atob(r.credential.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')))));
+    enter({email:p.email, name:p.name});
+  }});
+  $('#gHolder').innerHTML = '';
+  google.accounts.id.renderButton($('#gHolder'), {theme:'outline', size:'large', width:380, text:'signin_with'});
+}
+window.addEventListener('load', () => setTimeout(initGoogle, 600));
+function enter(u){ store('jony_session', u); boot(); }
+function logout(){ localStorage.removeItem('jony_session'); location.reload(); }
+
+/* ---------- ILOVA ---------- */
+let curView = 'dash';
+function boot(){
+  const u = load('jony_session', null);
+  if(!u) return;
+  $('#auth').classList.add('hide'); $('#app').classList.remove('hide');
+  $('#meName').innerHTML = '<b>'+esc(u.name)+'</b><br>'+esc(u.email);
+  go(curView);
+}
+document.querySelectorAll('.nav').forEach(b => b.onclick = () => go(b.dataset.v));
+function go(v){
+  curView = v;
+  document.querySelectorAll('.nav').forEach(b => b.classList.toggle('on', b.dataset.v === v));
+  $('#view').innerHTML = views[v]();
+  window.scrollTo(0,0);
+}
+function toast(t){ const e=$('#toast'); e.textContent=t; e.classList.remove('hide'); clearTimeout(toast.t); toast.t=setTimeout(()=>e.classList.add('hide'),2000); }
+const cnt = id => db.students.filter(s => s.course == id).length;
+
+const views = {
+dash(){
+  const m = monthNow(), paid = db.students.filter(s => s.paid[m]).length, total = db.students.length;
+  const income = db.students.filter(s => s.paid[m]).reduce((a,s) => a + course(s.course).price, 0);
+  return `<h2>Bosh sahifa</h2><p class="sub">Jony Academy — ${m} oyi holati</p>
+  <div class="grid">
+   <div class="card stat">O'quvchilar<b>${total}</b></div>
+   <div class="card stat">Kurslar<b>${db.courses.length}</b></div>
+   <div class="card stat good">To'laganlar<b>${paid}</b></div>
+   <div class="card stat warn">Qarzdorlar<b>${total-paid}</b></div>
+  </div>
+  <div class="card stat good" style="margin-bottom:24px">Shu oy tushum<b>${money(income)}</b></div>
+  <h3 style="margin-bottom:14px;font-size:16px">Kurslar bo'yicha o'quvchilar</h3>
+  <div class="grid">${db.courses.map(c => `<div class="card"><b>${esc(c.name)}</b>
+   <div class="bar"><i style="width:${total?cnt(c.id)/total*100:0}%"></i></div>
+   <p class="sub" style="margin:8px 0 0">${cnt(c.id)} ta o'quvchi</p></div>`).join('')}</div>`;
+},
+courses(){
+  return `<h2>Kurslar</h2><p class="sub">Qaysi fanlardan dars o'tiladi</p>
+  <div class="grid">${db.courses.map(c => `<div class="card course ${c.cls}">
+   <span class="tag">${esc(c.kind)}</span><h3 style="margin-top:10px">${esc(c.name)}</h3>
+   <p class="sub" style="margin:6px 0">O'qituvchi: ${esc(c.teacher)}</p>
+   <p><b>${money(c.price)}</b> / oy</p>
+   <p class="sub" style="margin:8px 0 0">${cnt(c.id)} ta o'quvchi</p></div>`).join('')}</div>`;
+},
+students(){
+  return `<h2>O'quvchilar</h2><p class="sub">Ism, telefon va kurs</p>
+  <div class="tools"><input id="q" placeholder="Ism yoki telefon qidirish" oninput="drawStu()">
+   <select id="cf" onchange="drawStu()"><option value="">Barcha kurslar</option>${db.courses.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('')}</select>
+   <button class="btn sm" onclick="addStu()">+ O'quvchi qo'shish</button></div>
+  <div class="tw" id="stuTable"></div>${setTimeout(drawStu)&&''}`;
+},
+att(){
+  return `<h2>Davomat</h2><p class="sub">Kelganlarni belgilang</p>
+  <div class="tools"><select id="ac" onchange="drawAtt()">${db.courses.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('')}</select>
+  <input type="date" id="ad" value="${today()}" onchange="drawAtt()"></div>
+  <div class="tw" id="attBox"></div>${setTimeout(drawAtt)&&''}`;
+},
+pay(){
+  return `<h2>To'lovlar</h2><p class="sub">Oylik to'lovlarni belgilang</p>
+  <div class="tools"><input type="month" id="pm" value="${monthNow()}" onchange="drawPay()">
+  <select id="pf" onchange="drawPay()"><option value="">Hammasi</option><option value="1">To'laganlar</option><option value="0">Qarzdorlar</option></select></div>
+  <div id="paySum" class="grid"></div><div class="tw" id="payBox"></div>${setTimeout(drawPay)&&''}`;
+}};
+
+/* O'quvchilar */
+function drawStu(){
+  const q = $('#q').value.toLowerCase(), cf = $('#cf').value;
+  const list = db.students.filter(s => (!cf || s.course == cf) && (s.name.toLowerCase().includes(q) || s.phone.includes(q)));
+  $('#stuTable').innerHTML = list.length ? `<table><tr><th>Ism</th><th>Telefon</th><th>Kurs</th><th></th></tr>${list.map(s =>
+   `<tr><td><b>${esc(s.name)}</b></td><td><a href="tel:${esc(s.phone.replace(/\s/g,''))}">${esc(s.phone)}</a></td><td>${esc(course(s.course).name)}</td>
+   <td><button class="x" onclick="delStu(${s.id})">O'chirish</button></td></tr>`).join('')}</table>` : '<div class="empty">O\'quvchi topilmadi</div>';
+}
+function addStu(){
+  const d = $('#dlg');
+  d.innerHTML = `<h3 style="margin-bottom:6px">Yangi o'quvchi</h3>
+  <label for="nn">Ism familiya</label><input id="nn">
+  <label for="np">Telefon</label><input id="np" placeholder="+998 90 000 00 00">
+  <label for="nc">Kurs</label><select id="nc">${db.courses.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('')}</select>
+  <div class="err" id="ne"></div>
+  <div style="display:flex;gap:10px;margin-top:10px"><button class="btn" style="background:var(--bg);color:var(--ink)" onclick="$('#dlg').close()">Bekor qilish</button><button class="btn" onclick="saveStu()">Saqlash</button></div>`;
+  d.showModal();
+}
+function saveStu(){
+  const name = $('#nn').value.trim(), phone = $('#np').value.trim();
+  if(!name || phone.replace(/\D/g,'').length < 9) return $('#ne').textContent = "Ism va to'g'ri telefon kiriting";
+  db.students.push({id:Date.now(), name, phone, course:+$('#nc').value, paid:{}});
+  save(); $('#dlg').close(); toast("O'quvchi qo'shildi"); drawStu();
+}
+function delStu(id){
+  if(!confirm("O'quvchini o'chirasizmi?")) return;
+  db.students = db.students.filter(s => s.id !== id); save(); drawStu(); toast("O'chirildi");
+}
+
+/* Davomat */
+function drawAtt(){
+  const cid = $('#ac').value, key = $('#ad').value + '|' + cid;
+  const list = db.students.filter(s => s.course == cid), rec = db.att[key] || {};
+  const keys = Object.keys(db.att).filter(k => k.endsWith('|'+cid));
+  $('#attBox').innerHTML = list.length ? `<table><tr><th>Ism</th><th>Telefon</th><th>Bugun</th><th>Umumiy davomat</th></tr>${list.map(s => {
+    const total = keys.length, came = keys.filter(k => db.att[k][s.id]).length;
+    return `<tr><td><b>${esc(s.name)}</b></td><td>${esc(s.phone)}</td>
+    <td><input type="checkbox" class="chk" data-id="${s.id}" ${rec[s.id] ?? true ? 'checked':''} aria-label="${esc(s.name)} keldi"></td>
+    <td>${total ? Math.round(came/total*100)+'% ('+came+'/'+total+')' : '—'}</td></tr>`}).join('')}</table>
+    <div style="padding:16px"><button class="btn sm" onclick="saveAtt()">Davomatni saqlash</button></div>` : '<div class="empty">Bu kursda o\'quvchi yo\'q</div>';
+}
+function saveAtt(){
+  const key = $('#ad').value + '|' + $('#ac').value, r = {};
+  document.querySelectorAll('#attBox .chk').forEach(c => r[c.dataset.id] = c.checked);
+  db.att[key] = r; save(); toast('Davomat saqlandi'); drawAtt();
+}
+
+/* To'lovlar */
+function drawPay(){
+  const m = $('#pm').value, f = $('#pf').value;
+  const all = db.students, ok = all.filter(s => s.paid[m]);
+  const sum = ok.reduce((a,s) => a + course(s.course).price, 0);
+  const debt = all.filter(s => !s.paid[m]).reduce((a,s) => a + course(s.course).price, 0);
+  $('#paySum').innerHTML = `<div class="card stat good">To'langan<b>${money(sum)}</b></div><div class="card stat warn">Qarz<b>${money(debt)}</b></div>`;
+  const list = all.filter(s => f === '' || (f === '1') === !!s.paid[m]);
+  $('#payBox').innerHTML = list.length ? `<table><tr><th>Ism</th><th>Telefon</th><th>Kurs</th><th>Summa</th><th>Holat</th></tr>${list.map(s =>
+   `<tr><td><b>${esc(s.name)}</b></td><td>${esc(s.phone)}</td><td>${esc(course(s.course).name)}</td><td>${money(course(s.course).price)}</td>
+   <td><button class="pill ${s.paid[m]?'ok':'no'}" onclick="togglePay(${s.id})">${s.paid[m]?"To'lagan":"To'lamagan"}</button></td></tr>`).join('')}</table>` : '<div class="empty">Ro\'yxat bo\'sh</div>';
+}
+function togglePay(id){
+  const m = $('#pm').value, s = db.students.find(x => x.id === id);
+  s.paid[m] ? delete s.paid[m] : s.paid[m] = true;
+  save(); drawPay();
+}
+
+boot();
+</script>
+</body>
+</html>
