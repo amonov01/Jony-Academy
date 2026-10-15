@@ -87,13 +87,97 @@ dialog::backdrop{background:#0C1F5488}
  main{padding:20px 16px 90px}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* ===== v2: katta dizayn + animatsiyalar ===== */
+@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes fl{50%{transform:translateY(-22px) rotate(2deg)}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 #F2A33A99}100%{box-shadow:0 0 0 18px #F2A33A00}}
+.btn{background:linear-gradient(135deg,#14307A,#12A3A0);padding:15px 26px;font-size:16px;border-radius:14px;box-shadow:0 8px 20px #14307A44;transition:.25s}
+.btn:hover{background:linear-gradient(135deg,#14307A,#12A3A0);transform:translateY(-3px);box-shadow:0 14px 28px #12A3A066}
+.btn:active{transform:scale(.97)}
+.btn.sm{padding:12px 20px;font-size:14px}
+.btn.alt{background:#fff;color:var(--lapis);box-shadow:0 8px 20px #0003}
+.btn.gold{background:var(--saffron);color:var(--lapis2);animation:pulse 2s infinite}
+.btn.gbtn{background:#fff;color:var(--ink);box-shadow:none;border:1.5px solid var(--line)}
+.btn.gbtn:hover{border-color:var(--turq);background:#fff}
+.nav{transition:.2s}.nav:hover{transform:translateX(4px)}
+.card{transition:.3s}.card:hover{transform:translateY(-6px);box-shadow:0 16px 32px #14307A22}
+main>*{animation:up .5s both}
+.grid>*{animation:up .6s both}.grid>*:nth-child(2){animation-delay:.08s}.grid>*:nth-child(3){animation-delay:.16s}.grid>*:nth-child(4){animation-delay:.24s}
+tbody tr,table tr{transition:background .2s}table tr:hover td{background:#F2F6FC}
+.pill{transition:.2s}.pill:hover{transform:scale(1.08)}
+.hero h1,.box{animation:up .8s both}
+.rv{opacity:0;transform:translateY(34px);transition:.8s cubic-bezier(.2,.7,.2,1)}.rv.in{opacity:1;transform:none}
+/* LANDING */
+#land{background:var(--lapis2);color:#fff;overflow-x:hidden}
+.nv{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:14px 5vw;backdrop-filter:blur(14px);background:#0C1F54cc}
+.nv nav{display:flex;gap:28px}.nv nav a{color:#C9D3F0;text-decoration:none;font-weight:600;transition:.2s}.nv nav a:hover{color:var(--saffron)}
+.lh{position:relative;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;padding:80px 5vw 100px;min-height:88vh}
+.lh::before{content:"";position:absolute;inset:0;opacity:.14;background:conic-gradient(from 45deg,var(--turq) 0 25%,transparent 0 50%,var(--turq) 0 75%,transparent 0) 0 0/64px 64px,radial-gradient(circle at 32px 32px,transparent 0 10px,var(--saffron) 10px 12px,transparent 12px) 0 0/64px 64px}
+.lh>*{position:relative}
+.badge{display:inline-block;background:#ffffff1c;padding:8px 16px;border-radius:99px;font-weight:700;font-size:14px;margin-bottom:22px;animation:up .6s both}
+.lh h1{font-size:clamp(38px,6vw,74px);line-height:1.03;animation:up .8s .1s both}
+.lh h1 em{font-style:normal;background:linear-gradient(90deg,var(--saffron),#FFD58A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lh p{max-width:46ch;line-height:1.7;opacity:.85;margin-top:20px;font-size:18px;animation:up .8s .2s both}
+.cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px;animation:up .8s .3s both}
+.cta .btn{width:auto;margin:0;padding:17px 32px;font-size:17px}
+.fl{height:440px}
+.fl div{position:absolute;padding:18px 26px;border-radius:20px;background:#ffffff1f;backdrop-filter:blur(8px);border:1px solid #ffffff33;font-family:Unbounded;font-weight:700;font-size:20px;animation:fl 6s ease-in-out infinite}
+.sts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:20px;padding:54px 5vw;background:var(--turq);text-align:center}
+.sts b{display:block;font-family:Unbounded;font-size:clamp(34px,5vw,52px)}.sts span{font-weight:600;opacity:.9}
+.sec{padding:90px 5vw;background:var(--bg);color:var(--ink)}
+.sec h2{font-size:clamp(26px,4vw,42px);text-align:center;margin-bottom:10px}.sec .sub{text-align:center;max-width:50ch;margin:0 auto}
+.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:44px}
+.cc{background:#fff;border-radius:22px;padding:28px;border:1px solid var(--line);border-top:6px solid var(--turq);transition:.35s}
+.cc:hover{transform:translateY(-10px) rotate(-.6deg);box-shadow:0 24px 40px #14307A26}
+.cc.e{border-top-color:var(--saffron)}.cc.r{border-top-color:var(--bad)}
+.cc .ic{width:56px;height:56px;border-radius:16px;background:var(--lapis);color:#fff;display:grid;place-items:center;font-family:Unbounded;font-size:20px;margin-bottom:18px}
+.cc h3{font-size:18px;margin-bottom:8px}.cc p{color:var(--mute);line-height:1.6;font-size:14px}.cc b{display:block;margin-top:16px;color:var(--lapis);font-size:18px}
+.sec.dk{background:var(--lapis2);color:#fff}.sec.dk .cc{background:#ffffff12;border-color:#ffffff22;color:#fff}.sec.dk .cc p{color:#C9D3F0}
+.cta2{text-align:center;padding:90px 5vw;background:linear-gradient(135deg,var(--lapis),var(--turq));color:#fff}
+.cta2 h2{font-size:clamp(26px,4vw,44px)}.cta2 p{margin:14px 0 30px;opacity:.9}.cta2 .btn{width:auto;margin:0;padding:18px 40px;font-size:18px}
+footer{padding:30px 5vw;background:var(--lapis2);color:#9FB0DC;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:14px}
+.back{background:none;color:var(--lapis);font-weight:700;padding:0;margin-bottom:14px}
+@media(max-width:820px){.lh{grid-template-columns:1fr;padding-top:50px}.fl{height:260px}.nv nav{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}.rv{opacity:1;transform:none}}
+.logo svg{width:36px;height:36px;flex:none;border-radius:10px}aside .logo svg{width:30px;height:30px}
 </style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%231F6FEB'/%3E%3Cpath fill='white' d='M8 15l8-4.5v9zM32 26l-8-4.5v9z'/%3E%3Crect x='20' y='10' width='4.5' height='10' rx='1.5' fill='white'/%3E%3Crect x='15.5' y='21' width='4.5' height='10' rx='1.5' fill='white'/%3E%3C/svg%3E">
 </head>
 <body>
 
-<section id="auth">
+<section id="land">
+ <header class="nv"><div class="logo"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#1F6FEB"/><path fill="#fff" d="M8 15l8-4.5v9zM32 26l-8-4.5v9z"/><rect x="20" y="10" width="4.5" height="10" rx="1.5" fill="#fff"/><rect x="15.5" y="21" width="4.5" height="10" rx="1.5" fill="#fff"/></svg>Jony Academy</div>
+  <nav><a href="#kurs">Kurslar</a><a href="#afz">Afzalliklar</a><a href="#aloqa">Aloqa</a></nav>
+  <button class="btn sm" onclick="showAuth('login')">Kirish</button></header>
+ <div class="lh">
+  <div><span class="badge">Yangi guruhlar ochiq</span>
+   <h1>Kelajagingni <em>Jony Academy</em> bilan boshla</h1>
+   <p>Dasturlash, ingliz va rus tillari. Tajribali ustozlar, amaliy darslar va qulay narxlar.</p>
+   <div class="cta"><button class="btn gold" onclick="showAuth('reg')">Ro'yxatdan o'tish</button><button class="btn alt" onclick="document.getElementById('kurs').scrollIntoView({behavior:'smooth'})">Kurslarni ko'rish</button></div></div>
+  <div class="fl"><div style="top:6%;left:8%">&lt;/&gt; HTML</div><div style="top:30%;right:4%;animation-delay:-2s">Python</div><div style="top:56%;left:2%;animation-delay:-4s">Hello!</div><div style="top:78%;right:14%;animation-delay:-1s">Привет!</div><div style="top:44%;left:34%;animation-delay:-3s;background:#F2A33A33">JS</div></div>
+ </div>
+ <div class="sts"><div class="rv"><b data-n="500" data-s="+">0</b><span>O'quvchilar</span></div><div class="rv"><b data-n="4">0</b><span>Yo'nalish</span></div><div class="rv"><b data-n="12">0</b><span>O'qituvchilar</span></div><div class="rv"><b data-n="98" data-s="%">0</b><span>Mamnun o'quvchilar</span></div></div>
+ <div class="sec" id="kurs"><h2 class="rv">Bizning kurslar</h2><p class="sub rv">O'zingizga mos yo'nalishni tanlang</p>
+  <div class="cg">
+   <div class="cc rv"><div class="ic">&lt;/&gt;</div><h3>Frontend</h3><p>HTML, CSS va JavaScript bilan zamonaviy saytlar yasashni o'rganing.</p><b>600 000 so'm / oy</b></div>
+   <div class="cc rv"><div class="ic">Py</div><h3>Python</h3><p>Dasturlashni noldan boshlang: mantiq, backend va avtomatlashtirish.</p><b>600 000 so'm / oy</b></div>
+   <div class="cc e rv"><div class="ic">En</div><h3>Ingliz tili</h3><p>Gapirish, tinglash va yozishni amaliyot orqali rivojlantiring.</p><b>400 000 so'm / oy</b></div>
+   <div class="cc r rv"><div class="ic">Ру</div><h3>Rus tili</h3><p>Kundalik va ish muloqoti uchun rus tilini ishonch bilan o'rganing.</p><b>350 000 so'm / oy</b></div>
+  </div></div>
+ <div class="sec dk" id="afz"><h2 class="rv">Nega Jony Academy?</h2><p class="sub rv" style="color:#C9D3F0">Sifatli ta'lim va qulay nazorat</p>
+  <div class="cg">
+   <div class="cc rv"><h3>Tajribali ustozlar</h3><p>Har bir kursni amaliyotda ishlaydigan mutaxassislar olib boradi.</p></div>
+   <div class="cc e rv"><h3>Amaliy darslar</h3><p>Nazariya kam, amaliyot ko'p. Har dars real vazifa bilan tugaydi.</p></div>
+   <div class="cc r rv"><h3>Davomat va to'lov nazorati</h3><p>Qatnashish va oylik to'lovlar tizimda aniq yuritiladi.</p></div>
+  </div></div>
+ <div class="cta2" id="aloqa"><h2 class="rv">Bugun boshlang</h2><p class="rv">Ro'yxatdan o'ting va o'z guruhingizni tanlang</p><button class="btn gold rv" onclick="showAuth('reg')">Ro'yxatdan o'tish</button></div>
+ <footer><span>© 2026 Jony Academy</span><span>Tel: +998 90 000 00 00</span></footer>
+</section>
+
+<section id="auth" class="hide">
  <div class="hero">
-  <div class="logo"><i>J</i>Jony Academy</div>
+  <div class="logo"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#1F6FEB"/><path fill="#fff" d="M8 15l8-4.5v9zM32 26l-8-4.5v9z"/><rect x="20" y="10" width="4.5" height="10" rx="1.5" fill="#fff"/><rect x="15.5" y="21" width="4.5" height="10" rx="1.5" fill="#fff"/></svg>Jony Academy</div>
   <div>
    <h1>Bilim — kelajak kaliti</h1>
    <p>IT, ingliz va rus tili kurslari. O'quvchilar, davomat va oylik to'lovlar — hammasi bir joyda.</p>
@@ -101,6 +185,7 @@ dialog::backdrop{background:#0C1F5488}
   <div class="chips"><span>Frontend</span><span>Python</span><span>English</span><span>Русский</span></div>
  </div>
  <div class="formside"><div class="box">
+  <button class="back" onclick="backLand()">← Bosh sahifa</button>
   <h2>Xush kelibsiz</h2>
   <div class="tabs"><button id="tLogin" class="on" onclick="tab('login')">Kirish</button><button id="tReg" onclick="tab('reg')">Ro'yxatdan o'tish</button></div>
   <div id="nameWrap" class="hide"><label for="aName">Ism</label><input id="aName" placeholder="Ismingiz"></div>
@@ -115,7 +200,7 @@ dialog::backdrop{background:#0C1F5488}
 
 <section id="app" class="hide">
  <aside>
-  <div class="logo"><i>J</i>Jony Academy</div>
+  <div class="logo"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#1F6FEB"/><path fill="#fff" d="M8 15l8-4.5v9zM32 26l-8-4.5v9z"/><rect x="20" y="10" width="4.5" height="10" rx="1.5" fill="#fff"/><rect x="15.5" y="21" width="4.5" height="10" rx="1.5" fill="#fff"/></svg>Jony Academy</div>
   <button class="nav on" data-v="dash">Bosh sahifa</button>
   <button class="nav" data-v="courses">Kurslar</button>
   <button class="nav" data-v="students">O'quvchilar</button>
@@ -207,8 +292,8 @@ function logout(){ localStorage.removeItem('jony_session'); location.reload(); }
 let curView = 'dash';
 function boot(){
   const u = load('jony_session', null);
-  if(!u) return;
-  $('#auth').classList.add('hide'); $('#app').classList.remove('hide');
+  if(!u){ $('#land').classList.remove('hide'); return; }
+  $('#land').classList.add('hide'); $('#auth').classList.add('hide'); $('#app').classList.remove('hide');
   $('#meName').innerHTML = '<b>'+esc(u.name)+'</b><br>'+esc(u.email);
   go(curView);
 }
@@ -331,6 +416,12 @@ function togglePay(id){
   s.paid[m] ? delete s.paid[m] : s.paid[m] = true;
   save(); drawPay();
 }
+
+function showAuth(m){ $('#land').classList.add('hide'); $('#auth').classList.remove('hide'); tab(m); window.scrollTo(0,0); }
+function backLand(){ $('#auth').classList.add('hide'); $('#land').classList.remove('hide'); }
+const io = new IntersectionObserver(es => es.forEach(e => { if(!e.isIntersecting) return; e.target.classList.add('in'); io.unobserve(e.target);
+  const b = e.target.querySelector('b[data-n]'); if(b){ const n=+b.dataset.n, sf=b.dataset.s||''; let i=0; const t=setInterval(()=>{ i+=Math.ceil(n/40); if(i>=n){i=n;clearInterval(t)} b.textContent=i+sf; },30); } }), {threshold:.2});
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
 
 boot();
 </script>
